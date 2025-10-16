@@ -1,6 +1,5 @@
 package com.zutjmx.curso.springboot.app.crudjpa.crudjpa.controllers;
 
-import java.lang.foreign.Linker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.entities.Producto;
 import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.services.ProductoService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,16 @@ public class ProductoController {
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizar(@PathVariable String id, @RequestBody Producto producto) {        
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(producto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> borrar(@PathVariable Long id) {
+        Optional<Producto> optionalProducto = productoService.findById(id);
+        if (optionalProducto.isPresent()) {
+            productoService.deleteById(id);
+            return ResponseEntity.ok(optionalProducto.orElseThrow());            
+        }
+        return ResponseEntity.notFound().build();
     }
     
 }
