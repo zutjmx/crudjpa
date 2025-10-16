@@ -49,7 +49,8 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizar(@PathVariable String id, @RequestBody Producto producto) {        
+    public ResponseEntity<Producto> actualizar(@PathVariable Long id, @RequestBody Producto producto) {
+        producto.setId(id);
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(producto));
     }
 
