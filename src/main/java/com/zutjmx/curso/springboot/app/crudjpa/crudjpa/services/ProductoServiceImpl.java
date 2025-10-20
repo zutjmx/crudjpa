@@ -52,4 +52,17 @@ public class ProductoServiceImpl implements ProductoService {
         });        
     }
 
+    @Transactional
+    @Override
+    public Producto update(Long id, Producto producto) {
+        Optional<Producto> productoDb = productoRepository.findById(id);
+        productoDb.ifPresent(p -> {
+            p.setNombre(producto.getNombre());
+            p.setPrecio(producto.getPrecio());
+            p.setDescripcion(producto.getDescripcion());
+            productoRepository.save(p);
+        });
+        return productoDb.get();
+    }
+
 }
