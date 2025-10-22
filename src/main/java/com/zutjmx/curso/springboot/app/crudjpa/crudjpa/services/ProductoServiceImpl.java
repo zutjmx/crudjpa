@@ -62,7 +62,7 @@ public class ProductoServiceImpl implements ProductoService {
             p.setDescripcion(producto.getDescripcion());
             productoRepository.save(p);
         });
-        return productoDb.get();
+        return productoDb.orElseThrow();
     }
 
 }

@@ -50,8 +50,7 @@ public class ProductoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizar(@PathVariable Long id, @RequestBody Producto producto) {
-        producto.setId(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(producto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productoService.update(id,producto));
     }
 
     @DeleteMapping("/{id}")
