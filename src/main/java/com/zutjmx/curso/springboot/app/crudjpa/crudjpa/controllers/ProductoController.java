@@ -50,6 +50,10 @@ public class ProductoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizar(@PathVariable Long id, @RequestBody Producto producto) {
+        Optional<Producto> optionalProducto = productoService.findById(id);
+        if (!optionalProducto.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.update(id,producto));
     }
 
