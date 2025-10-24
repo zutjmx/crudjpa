@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -22,6 +23,7 @@ public class Producto {
     private String nombre;
 
     @Min(value = 10, message = "El precio debe ser mayor o igual a 10")
+    @NotNull(message = "El precio no puede ser nulo")
     private Double precio;
 
     @NotEmpty(message = "La descripción no puede estar vacía")

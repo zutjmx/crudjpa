@@ -1,11 +1,14 @@
 package com.zutjmx.curso.springboot.app.crudjpa.crudjpa.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.entities.Producto;
@@ -46,12 +49,25 @@ public class ProductoController {
     }
     
     @PostMapping("/crear")
-    public ResponseEntity<Producto> crear(@Valid @RequestBody Producto producto) {
+    public ResponseEntity<?> crear(
+        @Valid @RequestBody Producto producto, 
+        BindingResult result
+    ) {
+        if (result.hasFieldErrors()) {
+            return manejarErrores(result);
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(producto));        
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizar(@PathVariable Long id, @Valid @RequestBody Producto producto) {
+    public ResponseEntity<?> actualizar(        
+        @Valid @RequestBody Producto producto, 
+        BindingResult result,
+        @PathVariable Long id
+    ) {
+        if (result.hasFieldErrors()) {
+            return manejarErrores(result);
+        }
         Optional<Producto> optionalProducto = productoService.findById(id);
         if (!optionalProducto.isPresent()) {
             return ResponseEntity.notFound().build();
@@ -67,6 +83,16 @@ public class ProductoController {
             return ResponseEntity.ok(optionalProducto.orElseThrow());            
         }
         return ResponseEntity.notFound().build();
+    }
+
+    private ResponseEntity<?> manejarErrores(BindingResult result) {
+        Map<String, String> errores = new HashMap<>();
+
+        result.getFieldErrors().forEach(err -> {
+            errores.put(err.getField(), "Error en el campo " + err.getField() + ", " + err.getDefaultMessage());
+        });
+
+        return ResponseEntity.badRequest().body(errores);
     }
     
 }
