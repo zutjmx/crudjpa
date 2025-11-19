@@ -18,16 +18,16 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "El nombre no puede estar vacío")
-    @Size(min = 4, max = 50, message = "El nombre debe tener entre 4 y 50 caracteres")
+    @NotEmpty(message = "{NotEmpty.producto.nombre}")
+    @Size(min = 4, max = 50, message = "{Size.producto.nombre}")
     private String nombre;
 
-    @Min(value = 10, message = "El precio debe ser mayor o igual a 10")
-    @NotNull(message = "El precio no puede ser nulo")
+    @Min(value = 10, message = "{Min.producto.precio}")
+    @NotNull(message = "{NotNull.producto.precio}")
     private Double precio;
 
-    @NotEmpty(message = "La descripción no puede estar vacía")
-    @Size(min = 10, max = 200, message = "La descripción debe tener entre 10 y 200 caracteres")
+    @NotEmpty(message = "{NotEmpty.producto.descripcion}")
+    @Size(min = 10, max = 200, message = "{Size.producto.descripcion}")
     private String descripcion;
 
     public Long getId() {
