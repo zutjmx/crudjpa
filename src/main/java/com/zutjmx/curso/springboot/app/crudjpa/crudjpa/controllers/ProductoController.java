@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.ProductoValidation;
 import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.entities.Producto;
 import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.services.ProductoService;
 
@@ -34,6 +35,9 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
+    @Autowired
+    private ProductoValidation productoValidation;
+
     @GetMapping("/listar")
     public List<Producto> listar() {
         return productoService.findAll();
@@ -53,6 +57,7 @@ public class ProductoController {
         @Valid @RequestBody Producto producto, 
         BindingResult result
     ) {
+        productoValidation.validate(producto, result);
         if (result.hasFieldErrors()) {
             return manejarErrores(result);
         }
@@ -65,6 +70,7 @@ public class ProductoController {
         BindingResult result,
         @PathVariable Long id
     ) {
+        productoValidation.validate(producto, result);
         if (result.hasFieldErrors()) {
             return manejarErrores(result);
         }
