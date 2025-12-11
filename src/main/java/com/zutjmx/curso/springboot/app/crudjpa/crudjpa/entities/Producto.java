@@ -1,5 +1,7 @@
 package com.zutjmx.curso.springboot.app.crudjpa.crudjpa.entities;
 
+import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.validation.IsRequired;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +28,8 @@ public class Producto {
     @NotNull(message = "{NotNull.producto.precio}")
     private Double precio;
 
-    @NotEmpty(message = "{NotEmpty.producto.descripcion}")
+    //@NotEmpty(message = "{NotEmpty.producto.descripcion}")
+    @IsRequired
     @Size(min = 10, max = 200, message = "{Size.producto.descripcion}")
     private String descripcion;
 
