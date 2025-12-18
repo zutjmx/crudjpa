@@ -6,4 +6,6 @@ import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.entities.Producto;
 
 public interface ProductoRepository extends CrudRepository<Producto, Long> {
 
+    boolean existsBySku(String sku);
+    
 }

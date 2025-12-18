@@ -60,9 +60,16 @@ public class ProductoServiceImpl implements ProductoService {
             p.setNombre(producto.getNombre());
             p.setPrecio(producto.getPrecio());
             p.setDescripcion(producto.getDescripcion());
+            p.setSku(producto.getSku());
             productoRepository.save(p);
         });
         return productoDb.orElseThrow();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public boolean existsBySku(String sku) {
+        return productoRepository.existsBySku(sku);
     }
 
 }

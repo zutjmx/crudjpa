@@ -12,4 +12,5 @@ public interface ProductoService {
     Producto update(Long id, Producto producto);
     void delete(Producto producto);
     void deleteById(Long id);
+    boolean existsBySku(String sku);
 }

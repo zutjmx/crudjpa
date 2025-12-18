@@ -33,6 +33,8 @@ public class Producto {
     @Size(min = 10, max = 200, message = "{Size.producto.descripcion}")
     private String descripcion;
 
+    private String sku;
+
     public Long getId() {
         return id;
     }
@@ -63,5 +65,13 @@ public class Producto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 }
