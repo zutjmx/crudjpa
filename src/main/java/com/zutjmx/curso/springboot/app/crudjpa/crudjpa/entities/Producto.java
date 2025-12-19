@@ -1,5 +1,6 @@
 package com.zutjmx.curso.springboot.app.crudjpa.crudjpa.entities;
 
+import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.validation.IsExistsDb;
 import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.validation.IsRequired;
 
 import jakarta.persistence.Entity;
@@ -33,6 +34,8 @@ public class Producto {
     @Size(min = 10, max = 200, message = "{Size.producto.descripcion}")
     private String descripcion;
 
+    @IsRequired
+    @IsExistsDb
     private String sku;
 
     public Long getId() {
