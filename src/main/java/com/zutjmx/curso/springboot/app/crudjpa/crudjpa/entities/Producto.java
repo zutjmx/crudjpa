@@ -34,8 +34,8 @@ public class Producto {
     @Size(min = 10, max = 200, message = "{Size.producto.descripcion}")
     private String descripcion;
 
-    @IsRequired
-    @IsExistsDb
+    //@IsRequired
+    //@IsExistsDb
     private String sku;
 
     public Long getId() {
