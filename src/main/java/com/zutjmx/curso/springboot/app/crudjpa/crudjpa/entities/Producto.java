@@ -1,6 +1,6 @@
 package com.zutjmx.curso.springboot.app.crudjpa.crudjpa.entities;
 
-import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.validation.IsExistsDb;
+//import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.validation.IsExistsDb;
 import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.validation.IsRequired;
 
 import jakarta.persistence.Entity;
