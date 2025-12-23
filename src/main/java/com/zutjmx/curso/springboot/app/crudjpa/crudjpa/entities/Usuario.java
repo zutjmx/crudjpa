@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.UniqueConstraint;
 
@@ -27,7 +28,7 @@ public class Usuario {
 
     private String password;
     
-    private Integer enabled;
+    //private Integer enabled;
 
     @ManyToAny
     @JoinTable(
@@ -41,6 +42,17 @@ public class Usuario {
         }
     )
     private List<Role> roles;
+
+    @Transient
+    private Boolean admin;
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
 
     public Long getId() {
         return id;
@@ -66,13 +78,13 @@ public class Usuario {
         this.password = password;
     }
 
-    public Integer getEnabled() {
+    /* public Integer getEnabled() {
         return enabled;
     }
 
     public void setEnabled(Integer enabled) {
         this.enabled = enabled;
-    }
+    } */
 
     public List<Role> getRoles() {
         return roles;
