@@ -28,8 +28,6 @@ public class Usuario {
 
     private String password;
     
-    //private Integer enabled;
-
     @ManyToAny
     @JoinTable(
         name = "usuarios_roles",
@@ -44,15 +42,7 @@ public class Usuario {
     private List<Role> roles;
 
     @Transient
-    private Boolean admin;
-
-    public Boolean getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
+    private boolean admin;
 
     public Long getId() {
         return id;
@@ -78,20 +68,20 @@ public class Usuario {
         this.password = password;
     }
 
-    /* public Integer getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Integer enabled) {
-        this.enabled = enabled;
-    } */
-
     public List<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
 }
