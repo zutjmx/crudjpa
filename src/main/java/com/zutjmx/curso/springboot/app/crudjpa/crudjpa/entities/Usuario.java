@@ -14,6 +14,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios")
@@ -24,8 +26,12 @@ public class Usuario {
     private Long id;
     
     @Column(unique = true, length = 20)
+    @NotBlank(message = "Username no puede estar vacío")
+    @Size(min = 4, max = 20, message = "Username debe tener entre 4 y 20 caracteres")
     private String username;
 
+    @NotBlank(message = "Password no puede estar vacío")
+    @Size(min = 6, message = "Password debe tener al menos 6 caracteres")
     private String password;
     
     @ManyToAny
