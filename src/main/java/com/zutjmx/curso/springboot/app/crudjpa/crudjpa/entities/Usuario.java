@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.JoinColumn;
@@ -32,6 +35,7 @@ public class Usuario {
 
     @NotBlank(message = "Password no puede estar vacío")
     @Size(min = 6, message = "Password debe tener al menos 6 caracteres")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     
     @ManyToAny
@@ -47,7 +51,13 @@ public class Usuario {
     )
     private List<Role> roles;
 
-    private boolean enabled;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Boolean enabled;
+
+    @PrePersist
+    public void prePersist() {
+        this.enabled = true;
+    }
 
     @Transient
     private boolean admin;
@@ -92,11 +102,11 @@ public class Usuario {
         this.admin = admin;
     }
 
-    public boolean isEnabled() {
+    public Boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
