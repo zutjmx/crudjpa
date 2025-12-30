@@ -42,6 +42,12 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuario));
     }
 
+    @PostMapping("/registrar")
+    public ResponseEntity<?> registrar(@Valid @RequestBody Usuario usuario, BindingResult result) {        
+        usuario.setAdmin(false);
+        return crear(usuario, result);
+    }
+
     private ResponseEntity<?> manejarErrores(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
 

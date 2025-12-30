@@ -60,6 +60,7 @@ public class Usuario {
     }
 
     @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean admin;
 
     public Long getId() {
