@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -39,6 +40,7 @@ public class Usuario {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "usuarios"})
     @ManyToAny
     @JoinTable(
         name = "usuarios_roles",
