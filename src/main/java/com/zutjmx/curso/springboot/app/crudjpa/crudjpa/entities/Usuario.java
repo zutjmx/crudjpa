@@ -7,6 +7,7 @@ import org.hibernate.annotations.ManyToAny;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.validation.ExistsByUsername;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +31,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @ExistsByUsername
     @Column(unique = true, length = 20)
     @NotBlank(message = "Username no puede estar vacío")
     @Size(min = 4, max = 20, message = "Username debe tener entre 4 y 20 caracteres")

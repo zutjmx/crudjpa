@@ -8,5 +8,6 @@ public interface UsuarioService {
 
     List<Usuario> findAll();
     Usuario save(Usuario usuario);
+    boolean existsByUsername(String username);
     
 }
