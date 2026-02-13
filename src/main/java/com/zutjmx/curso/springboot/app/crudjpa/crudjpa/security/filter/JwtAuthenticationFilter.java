@@ -90,8 +90,22 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         body.put("token", token);
         body.put("message", String.format("Hola %s, has iniciado sesión con éxito!", username));
         response.getWriter().write(new ObjectMapper().writeValueAsString(body));
-        response.setContentType("application/json");
+        response.setContentType(CONTENT_TYPE);
         response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(
+        HttpServletRequest request, 
+        HttpServletResponse response,
+        AuthenticationException failed
+    ) throws IOException, ServletException {
+        Map<String, String> body = new HashMap<>();
+        body.put("error", failed.getMessage());
+        body.put("message", "Usuario o contraseña incorrectos");
+        response.getWriter().write(new ObjectMapper().writeValueAsString(body));
+        response.setContentType(CONTENT_TYPE);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
     
 }
