@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.security.filter.JwtAuthenticationFilter;
+import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.security.filter.JwtValidationFilter;
 
 @Configuration
 public class SpringSecurityConfig {
@@ -34,12 +35,13 @@ public class SpringSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {        
         return http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.GET,"/api/productos/listar").permitAll()
+                //.requestMatchers(HttpMethod.GET,"/api/productos/listar").permitAll()
                 .requestMatchers(HttpMethod.GET,"/api/usuarios").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/usuarios/registrar").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+            .addFilter(new JwtValidationFilter(authenticationManager()))
             .csrf(config -> config.disable())
             .sessionManagement(
                 management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
