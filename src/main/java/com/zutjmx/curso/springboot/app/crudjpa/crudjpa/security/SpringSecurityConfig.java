@@ -35,9 +35,17 @@ public class SpringSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {        
         return http
             .authorizeHttpRequests(auth -> auth
-                //.requestMatchers(HttpMethod.GET,"/api/productos/listar").permitAll()
                 .requestMatchers(HttpMethod.GET,"/api/usuarios").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/usuarios/registrar").permitAll()
+                .requestMatchers(HttpMethod.POST,"/api/usuarios").hasRole("ADMIN")
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/productos/listar",
+                    "/api/productos/{id}"
+                ).hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST,"/api/productos/crear").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT,"/api/productos/{id}").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE,"/api/productos/{id}").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
