@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,7 @@ import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.security.filter.JwtAuthen
 import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.security.filter.JwtValidationFilter;
 
 @Configuration
+@EnableMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig {
 
     @Autowired
@@ -37,15 +39,15 @@ public class SpringSecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.GET,"/api/usuarios").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/usuarios/registrar").permitAll()
-                .requestMatchers(HttpMethod.POST,"/api/usuarios").hasRole("ADMIN")
-                .requestMatchers(
-                    HttpMethod.GET,
-                    "/api/productos/listar",
-                    "/api/productos/{id}"
-                ).hasAnyRole("USER", "ADMIN")
-                .requestMatchers(HttpMethod.POST,"/api/productos/crear").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT,"/api/productos/{id}").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE,"/api/productos/{id}").hasRole("ADMIN")
+                // .requestMatchers(HttpMethod.POST,"/api/usuarios").hasRole("ADMIN")
+                // .requestMatchers(
+                //     HttpMethod.GET,
+                //     "/api/productos/listar",
+                //     "/api/productos/{id}"
+                // ).hasAnyRole("USER", "ADMIN")
+                // .requestMatchers(HttpMethod.POST,"/api/productos/crear").hasRole("ADMIN")
+                // .requestMatchers(HttpMethod.PUT,"/api/productos/{id}").hasRole("ADMIN")
+                // .requestMatchers(HttpMethod.DELETE,"/api/productos/{id}").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
