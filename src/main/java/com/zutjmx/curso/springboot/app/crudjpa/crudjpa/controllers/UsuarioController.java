@@ -17,12 +17,13 @@ import com.zutjmx.curso.springboot.app.crudjpa.crudjpa.services.UsuarioService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-
+@CrossOrigin(origins = "http://localhost:4200", originPatterns = "*")
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
